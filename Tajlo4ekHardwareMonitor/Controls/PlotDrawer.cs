@@ -24,6 +24,7 @@ namespace Tajlo4ekHardwareMonitor.Controls
         {
             Load,
             Temp,
+            Used,
         }
 
         public PlotDrawer()
@@ -38,6 +39,11 @@ namespace Tajlo4ekHardwareMonitor.Controls
             {
                 values.Add(0);
             }
+        }
+
+        public override string ToString()
+        {
+            return name + " " + valueName;
         }
 
         public Size ValidateSize()
@@ -138,6 +144,11 @@ namespace Tajlo4ekHardwareMonitor.Controls
             {
                 case ValueType.Load:
                     valueName = "Load";
+                    valueUnit = "%";
+                    break;
+
+                case ValueType.Used:
+                    valueName = "Used";
                     valueUnit = "%";
                     break;
 

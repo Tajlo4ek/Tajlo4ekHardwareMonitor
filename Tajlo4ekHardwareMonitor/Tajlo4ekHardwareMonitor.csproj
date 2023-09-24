@@ -44,9 +44,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComputerViewManager.cs" />
+    <Compile Include="ComputerManager\BindData.cs" />
+    <Compile Include="ComputerManager\ComputerViewManager.cs" />
     <Compile Include="ControlPlaceManager.cs" />
     <Compile Include="Controls\PlotDrawer.cs">
       <SubType>UserControl</SubType>

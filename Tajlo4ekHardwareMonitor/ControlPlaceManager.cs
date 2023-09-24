@@ -27,10 +27,16 @@ namespace Tajlo4ekHardwareMonitor
             public PositionH positionH;
             public PositionV positionV;
             public int margin;
+
+            public override string ToString()
+            {
+                return string.Format("parent:{0} child:{1}", parent, child);
+            }
         }
 
         private static readonly List<Data> controls = new List<Data>();
 
+        private ControlPlaceManager() { }
 
         public static void Connect(Control parent, Control child, PositionH posH, PositionV posV, int margin)
         {
