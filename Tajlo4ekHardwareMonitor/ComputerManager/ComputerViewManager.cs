@@ -481,7 +481,7 @@ namespace Tajlo4ekHardwareMonitor
             {
                 if (plot is PlotDrawer drawer)
                 {
-                    drawer.Size = new System.Drawing.Size(145, 80);
+                    drawer.Size = new System.Drawing.Size(155, 80);
                     drawer.Size = drawer.ValidateSize();
                 }
             }

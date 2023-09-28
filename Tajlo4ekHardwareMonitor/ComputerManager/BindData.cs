@@ -55,7 +55,7 @@ namespace Tajlo4ekHardwareMonitor.DataBind
 
     class LabelBind : IUpdatable
     {
-        public static readonly Font LabelFont = new Font("Consolas", 8.25f);
+        public static readonly Font LabelFont = new Font("Consolas", 9f);
 
         protected string unit = "";
         protected string name = "";
@@ -249,7 +249,7 @@ namespace Tajlo4ekHardwareMonitor.DataBind
         public ClockVoltage()
         {
             //TODO: auto size Remove
-            label = new Label() { Font = LabelBind.LabelFont, AutoSize = true };
+            label = new Label() { Font = new Font("Consolas", 8.25f), AutoSize = true };
             clockVoltages = new List<Data>();
         }
 

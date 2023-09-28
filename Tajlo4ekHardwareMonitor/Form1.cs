@@ -1,9 +1,7 @@
 ﻿
 using System;
-using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace Tajlo4ekHardwareMonitor
 {
@@ -12,7 +10,9 @@ namespace Tajlo4ekHardwareMonitor
         private readonly ComputerViewManager computerViewManager;
 
         readonly Control cpuControl;
+        readonly Control gpuControl;
         readonly Control ramControl;
+        readonly List<Control> storagesControl;
         private bool first = true;
 
         public Form1()
@@ -23,9 +23,9 @@ namespace Tajlo4ekHardwareMonitor
             computerViewManager = new ComputerViewManager();
 
             cpuControl = computerViewManager.GenerateViewCpu();
-            var gpuControl = computerViewManager.GenerateViewGpu();
+            gpuControl = computerViewManager.GenerateViewGpu();
             ramControl = computerViewManager.GenerateViewRam();
-            var storages = computerViewManager.GenerateViewDisks();
+            storagesControl = computerViewManager.GenerateViewDisks();
 
             ControlPlaceManager.Connect(cpuControl, gpuControl, ControlPlaceManager.PositionH.Right, ControlPlaceManager.PositionV.Top, 5);
             ControlPlaceManager.Connect(gpuControl, ramControl, ControlPlaceManager.PositionH.Right, ControlPlaceManager.PositionV.Top, 5);
@@ -35,20 +35,11 @@ namespace Tajlo4ekHardwareMonitor
             this.Controls.Add(ramControl);
 
             var prevControl = gpuControl;
-            foreach (var control in storages)
+            foreach (var control in storagesControl)
             {
                 this.Controls.Add(control);
                 ControlPlaceManager.Connect(prevControl, control, ControlPlaceManager.PositionH.Left, ControlPlaceManager.PositionV.Bottom, 5);
                 prevControl = control;
-            }
-
-            cpuControl.Location = new System.Drawing.Point(12, 5);
-
-
-            ramControl.MinimumSize = new System.Drawing.Size(ramControl.Size.Width, gpuControl.Size.Height);
-            foreach (var control in storages)
-            {
-                control.MinimumSize = new System.Drawing.Size(ramControl.Right - gpuControl.Left, control.Size.Height);
             }
 
             SetDarkTheme(this);
@@ -64,6 +55,19 @@ namespace Tajlo4ekHardwareMonitor
             computerViewManager.Update();
             if (first)
             {
+                cpuControl.Location = new System.Drawing.Point(12, 5);
+
+                gpuControl.MinimumSize = new System.Drawing.Size(
+                    gpuControl.Width,
+                    cpuControl.Height - (storagesControl[storagesControl.Count - 1].Bottom - storagesControl[0].Top) - 5);
+
+                ramControl.MinimumSize = new System.Drawing.Size(ramControl.Size.Width, gpuControl.Size.Height);
+                foreach (var control in storagesControl)
+                {
+                    control.MinimumSize = new System.Drawing.Size(ramControl.Right - gpuControl.Left, control.Size.Height);
+                }
+
+
                 Form1_Resize(null, EventArgs.Empty);
                 first = false;
             }
